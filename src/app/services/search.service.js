@@ -100,7 +100,6 @@ class SearchService {
                 count: () => this.searchParams.count || SearchService._count,
                 start: () => this.searchParams.start || 0,
                 publishedCategory: (isSearch, fields) => {
-
                     if ('publishedCategory(id,name)' !== fields) {
                         if (this.searchParams.category.length > 0) {
                             var equals = isSearch ? ':' : '=';

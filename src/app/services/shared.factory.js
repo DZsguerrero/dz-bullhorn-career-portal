@@ -1,6 +1,5 @@
 class SharedData {
     constructor() {
-   this._.isCollapsed = true;
     }
 
     get _() {

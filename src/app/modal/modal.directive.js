@@ -3,7 +3,8 @@
 class CareerPortalModal {
     constructor() {
         'ngInject';
-           let directive = {
+
+        let directive = {
             restrict: 'E',
             templateUrl: 'app/modal/modal.html',
             scope: false,

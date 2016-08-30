@@ -43,7 +43,7 @@ class ShareService {
         }
 
         if (job.address) {
-            var location = '\n' + this.locale.getString('common.locationSectionHeading') + ':';
+            var location = '\n' + this.locale.getString('common.locationSectionHeading') + ': ';
             if (job.address.city && job.address.state) {
                 body += location + job.address.city + ', ' + job.address.state + '\n';
             } else if (job.address.city) {

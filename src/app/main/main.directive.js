@@ -3,10 +3,6 @@ class MainController {
         'ngInject';
 
         this.SharedData = SharedData;
-        this.SharedData.isCollapsed = true;
-        this.SharedData.CareerResource = false;
-        this.SharedData.Diversity = false;
-        this.SharedData.About = false;
     }
 
     closeFilters() {
@@ -20,10 +16,6 @@ class MainController {
         if ($mask) {
             $mask.classList.remove('active');
         }
-    }
-    closeCollapse() {
-        console.log(this.SharedData.isCollapsed);
-        this.SharedData.isCollapsed = !this.SharedData.isCollapsed;
     }
 }
 

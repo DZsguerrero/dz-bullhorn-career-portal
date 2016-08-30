@@ -25,10 +25,7 @@ import StripHtmlFilter from './filters/striphtml.filter';
 import OmitFiltersFilter from './filters/omitfilters.filter';
 import DisplayDateFilter from './filters/displayDate.filter';
 
-angular.module('CareerPortal', ['ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ngFileUpload', '720kb.tooltips', 'ng-fastclick', 'ngLocalize', 'ngLocalize.Config', 'ngLocalize.InstalledLanguages', 'ngLocalize.Events', 'ui.bootstrap'])
-   .run(function($rootScope) {
-    $rootScope.showLogo = true;
-})
+angular.module('CareerPortal', ['ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ngFileUpload', '720kb.tooltips', 'ng-fastclick', 'ngLocalize', 'ngLocalize.Config', 'ngLocalize.InstalledLanguages', 'ngLocalize.Events'])
     .constant('moment', moment)
     .constant('localeConf', {})
     .constant('localeSupported', [])
@@ -53,23 +50,7 @@ angular.module('CareerPortal', ['ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router
     .service('LinkedInService', LinkedInService)
     .service('MobileDetection', MobileDetection)
     .service('VerifyLI', VerifyLI)
-    .service('CacheService', CacheService)
-    .directive('resizable', function($window,SharedData) {
-  return function($scope) {
-    $scope.initializeWindowSize = function() {
-        console.log($window.innerWidth);
-        if ($window.innerWidth > 500) {SharedData.isCollapsed = false;}
-         $scope.windowHeight = $window.innerHeight;
-        $scope.windowWidth = $window.innerWidth;
-        return $scope;
-    };
-    $scope.initializeWindowSize();
-    return angular.element($window).bind('resize', function() {
-      $scope.initializeWindowSize();
-      return $scope.$apply();
-    });
-  };
-});
+    .service('CacheService', CacheService);
 
 // Deferring the bootstrap to make sure we have loaded the config from app.json
 deferredBootstrapper.bootstrap({
