@@ -1,24 +1,23 @@
-<section class="job-list ng-scope">
-    <!--<h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>-->
+<section class="job-list">
+    <h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>
 
-   <!-- <h4> “Welcome to the Yoh Career Search Portal. Less searching; more finding. We’re waiting to connect you with a great career. Enter your search terms on the left and let’s get started.”</h4>-->
     <div class="cards">
-        <div class="card-wrapper ng-scope" data-ng-repeat="job in list.SearchService.currentListData | orderBy:dateLastPublished">
+        <div class="card-wrapper" data-ng-repeat="job in list.SearchService.currentListData | orderBy:dateLastPublished">
             <a class="card slide-up-item" data-ng-href="#/jobs/{{job.id}}">
-                <span class="card-date ng-binding ng-scope" data-ng-if="job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{job.dateLastPublished | displayDate}}</span>
+                <span class="card-date" data-ng-if="job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{job.dateLastPublished | displayDate}}</span>
 
                 <span class="card-title-category">
-                    <span class="card-title ng-binding">{{::job.title}}</span>
-                    <span class="card-category ng-binding">{{::job.publishedCategory.name}}</span>
+                    <span class="card-title">{{::job.title}}</span>
+                    <span class="card-category">{{::job.publishedCategory.name}}</span>
                 </span>
 
-                <span class="card-location ng-binding">
+                <span class="card-location">
                     {{::job.address.city}}<span data-ng-if="::(job.address.city && job.address.state)">,&nbsp;</span>{{::job.address.state}}
                 </span>
-                <span class="card-separator ng-hide" data-ng-show="::((job.address.city || job.address.state) && job.employmentType)">|</span>
-                <span class="card-type ng-binding">{{::job.employmentType}}</span>
+                <span class="card-separator" data-ng-show="::((job.address.city || job.address.state) && job.employmentType)">|</span>
+                <span class="card-type">{{::job.employmentType}}</span>
 
-                <span class="card-description ng-binding">{{::job.publicDescription | stripHtml}}</span>
+                <span class="card-description" ng-bind-html="job.publicDescription"></span>
 
                 <i class="bhi-arrow-right"></i>
             </a>
@@ -39,4 +38,3 @@
         {{'list.loadMoreDataLabel' | i18n}}
     </p>
 </section>
-

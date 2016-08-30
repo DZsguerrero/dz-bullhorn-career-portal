@@ -4,9 +4,9 @@
 // endbower
 
 $white: #FFFFFF;
-$primary: #AB1E2C;
+$primary: #5198DE;
 $secondary: #ACC72E;
-$light-bg:#f2d8af  ;
+$light-bg: #F4F4F4;
 $dark-bg: #2E2F30;
 $header-bg: $primary;
 $sidebar-header-bg: #252728;
@@ -14,12 +14,11 @@ $toggle-active: #fff;
 $cancel: darken($light-bg, 15%);
 $error: #da4453;
 
-$font-size: 15px;
-$font-family: 'Raleway-Medium';
-$font-stack:'oswald';
+$font-size: 13px;
+$font-family: 'Roboto';
 $base-color: #46474A;
 
-$header-height: 40px;
+$header-height: 60px;
 $sidebar-width: 300px;
 $sidebar-width-small: 50px;
 
@@ -103,10 +102,8 @@ a {
 
     > .card-title-category {
         > .card-title {
-            font-size: 23px;
-            font-family:$font-stack;
-            font-weight: bold;
-            text-transform:uppercase;
+            font-size: 1.7em;
+            font-weight: 500;
             overflow: hidden;
             text-overflow: ellipsis;
             margin-bottom: 0.2em;
