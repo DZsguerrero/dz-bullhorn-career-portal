@@ -6,7 +6,7 @@ aside {
     top: 0;
     left: -80%;
     background-color: $dark-bg;
-    color: $white;
+    color: $secondary;
     flex-direction: column;
     transition: all 0.2s ease-in-out;
 
@@ -24,7 +24,7 @@ aside {
     }
 
     > header {
-        background-color: $sidebar-header-bg;
+        background-color: $white; //$sidebar-header-bg;
         height: $header-height;
         display: flex;
         flex-flow: row nowrap;
@@ -129,9 +129,9 @@ aside {
                 margin-bottom: 1em;
 
                 > h4 {
-                    color: lighten($dark-bg, 35%);
-                    font-size: 1.1em;
-                    font-weight: 500;
+                    color: $white; //lighten($dark-bg, 35%);
+                    font-size: 1em;
+                    font-weight: bold; //500;
                     display: inline-block;
                     margin: 0;
                 }

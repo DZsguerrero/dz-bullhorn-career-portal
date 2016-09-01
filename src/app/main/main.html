@@ -1,6 +1,43 @@
 <section class="main" data-ng-class="[main.SharedData.viewState, main.SharedData.gridState]">
     <career-portal-modal data-ng-show="main.SharedData.modalState === 'open'"></career-portal-modal>
+    
+    <section class="logo">
+        <div class="yoh-logo">
+            <img src="assets/images/DZ-tagline-white.png">
+            
+            <div class="sc2">                
+                <div class="cell-wrapper">
+                    <div id="socialMedia">
+                        <a ng-href="https://twitter.com/DayZim" target="_blank"><img src="assets/images/Twitter-White.png" alt="Twitter" width="30px" height="30px"></a>
+                        <a ng-href="http://www.linkedin.com/company/day-&-zimmermann" target="_blank"><img src="assets/images/LinkedIn-Whitepsd.png" alt="LinkedIn" width="30px" height="30px"></a>
+                        <a ng-href="http://www.facebook.com/dayzim" target="_blank"><img src="assets/images/Facebook-White.png" alt="Facebook" width="30px" height="30px"></a>
+                        <a ng-href="http://www.youtube.com/user/DayZimVideo" target="_blank"><img src="assets/images/YouTube-White.png" alt="YouTube" width="30px" height="30px"></a>
+                    </div>
+                    <div class="btn-group" data-toggle="buttons">
+                        <div class="links">
+                            <a ng-href="http://www.dayzim.com" target="_blank">Home</a> | 
+                            <a ng-href="http://dayzim.com/Careers" target="_blank">Careers</a>
+                        </div>
+                   </div>          
+                </div>
+            </div>
+            
+        </div> 
+    </section>
+    
+    <section class="dropmenu">  
+        <div resizable class="sc3">
+            <div class="bt1" ng-click="main.SharedData.isCollapsed = !main.SharedData.isCollapsed;">
+                <span class="navicon">MENU ▼</span>
+            </div>
+            <div class="well1" ng-show="main.SharedData.isCollapsed">
+                <div class="well well-lg" ><a ng-href="http://www.dayzim.com">Home</a></div>
+                <div class="well well-lg" > <a  ng-href="http://dayzim.com/Careers">Careers</a></div>
 
+            </div>
+        </div> 
+    </section>
+    
     <section class="portal">
         <div class="portal-canvas">
             <career-portal-sidebar></career-portal-sidebar>

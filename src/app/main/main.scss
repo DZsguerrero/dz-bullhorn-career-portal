@@ -1,3 +1,159 @@
+section.main {
+    
+    > section.logo {
+        width:100%;
+        height:160px;
+        background-color:$primary;
+        background-image: url(/assets/images/bg-pattern.gif);
+        @include desktop(){
+        height:90px;
+        }
+        
+        > .yoh-logo {
+            text-align:center;
+            padding-left:5px;
+            width:100%;
+            height:50px;
+            img{
+                width:133px;
+                height:85px;
+                margin-top:8px;
+                
+                @include desktop(){
+                    width:117px;
+                    height:75px;
+                    margin-top:10px;
+                }
+            }
+            
+            @include desktop(){
+                text-align:left;
+                width:14%; 
+                float:bottom;
+            }
+            
+            > .sc2 {
+                width:100%;
+                height:40px;
+                position:relative;
+                top:-5px;
+                
+                @include desktop() {
+                    position:absolute;
+                    top:0;
+                    right:0;
+                    width:86%;
+                    height:90px;
+                    text-align:right;
+                }
+                
+                > .cell-wrapper{
+                    height:45px;
+                    width:100%;
+                    text-align:center;
+                    
+                    .btn-group{  
+                        @include desktop() {
+                            height:90px; 
+                            float:right;
+                            padding-right:20px;
+                        }
+                        
+                        .links{
+                            @include desktop(){
+                                padding-top:15px;
+                                text-align:right;
+                                font-weight: 600;
+                            }
+                            a {
+                                color:white;
+                                font-family:Raleway;
+                                font-weight: 600;
+                                margin-right:8px;
+                                margin-left:8px;
+                                
+                                @include desktop(){
+                                    color:white;
+                                    margin-right:8px;
+                                    margin-left:8px;
+                                    font-size:15px;
+                                    font-family:Raleway;
+                                    font-weight: 600;
+                                }
+                            }
+                            a:hover {
+                                color: lighten($dark-bg,35%);
+                            }
+                            
+                        }
+                        @media only screen and (max-width: 768px) {   
+                            /*display:none;  */
+                             
+                        }
+                                    
+                        }
+                    }
+                #socialMedia{
+                    text-align:center;
+                      height:45px;
+                      img{
+                        width:30px;
+                        height:30px;
+                        @include desktop(){
+                            width:30px;
+                            height:30px;
+                            text-align:right;
+                        }
+
+                        
+
+
+                      }
+
+                        @include desktop() {
+                            text-align:right;
+                            height:45px;
+                            padding-right:25px;
+                            padding-top:3px;
+                        }      
+                    }  
+
+                    .small-phrase{
+                     
+                      color:white;
+                       font-size:small;
+                       @include desktop(){
+                         display:none;
+                        }
+                    }
+            
+                   
+                > .long-text{
+                     
+                  
+                    .phrase{
+                        @include desktop() {
+                             color:black;
+                             text-align:left;
+                              padding-top:18px;
+                              width:50%;
+                              float:left;
+                              font-size:small;
+                              color:#ececeb;
+                        }
+                         @media only screen and (max-width: 768px) {   
+                                display:none;  
+                        }
+                    } 
+                       
+                    
+                } 
+            }
+        }
+    }
+ }  
+
+
 section.portal {
     position: relative;
     overflow: hidden;
@@ -45,4 +201,64 @@ section.portal {
             }
         }
     }
+}
+
+/* Drop Menu */
+section.dropmenu {
+    display:none;
+    background-color:#AB1E2C;
+    
+    @include desktop() {
+        display: none;
+    }
+    
+    .sc3{
+       margin-left:9px;
+       margin-right:9px;
+       .bt1{
+         display: block;
+         position:relative;
+          padding:.5em;
+          background-color:#ececeb;;
+         border-bottom:1px solid rgba(0,0,0,0.2);
+          height:48px;
+          @include desktop() {
+             display: none;
+           } 
+           span{
+              position:absolute;
+              z-index:999;
+              top:15px;
+              left:45%;
+              height:20px;
+              display:inline-block;
+               text-align:center;
+               font-weight:bold;
+               font-family:oswald;
+               font-size:16px;
+               color:#AB1E2C;
+
+                @include desktop(){
+                  display:none;
+                }
+               
+            }
+        }
+       .well1{
+         text-align:center;
+           .well-lg{
+             border-radius:0px;
+               margin-bottom:1px;
+               padding:10px;
+              a{
+                 font-weight:bold;
+                 font-size:16px;
+                 font-family:oswald;
+                }
+               @include desktop(){
+               display:none
+               }
+            }
+        }
+    }  
 }

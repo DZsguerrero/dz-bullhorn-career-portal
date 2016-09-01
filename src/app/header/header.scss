@@ -3,7 +3,7 @@ header.app {
     min-height: $header-height;
     padding: 0 1.5em;
     text-align: center;
-
+    font-size:1.2em;
     background-color: $header-bg;
     color: $white;
     z-index: $header-z-index;
@@ -14,8 +14,7 @@ header.app {
 
     > label {
         display: inline-block;
-        font-size: 2em;
-        font-weight: 700;
+        font-size: 1.4em;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
