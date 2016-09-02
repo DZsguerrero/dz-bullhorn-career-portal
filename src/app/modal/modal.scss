@@ -78,7 +78,7 @@
                     }
 
                     &.location, &.separator, &.type {
-                        color: #3D5668
+                        color: $light-bg; //#3D5668
                     }
                 }
 
@@ -136,7 +136,7 @@
 
                             > input, select {
                                 flex: 1;
-                                color: lighten($dark-bg, 30%);
+                                color: lighten($dark-bg, 10%);
 
                                 &.ng-invalid {
                                     &.ng-valid-required {
