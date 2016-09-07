@@ -2,11 +2,11 @@
     <!-- APPLY CARD -->
     <div class="card apply" data-ng-if="detail.job.isPublic && !detail.job.isDeleted && detail.job.isOpen">
         <!-- JOB PUBLICATION DATE -->
-        <span class="card-date" data-ng-if="detail.job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{detail.job.dateLastPublished | displayDate}}</span>
+        <span class="card-date" data-ng-if="detail.job.dateAdded">{{'common.addedLabel' | i18n}} - {{detail.job.dateAdded | displayDate}}</span>
         <!-- TITLE & CATEGORY -->
         <span class="card-title-category">
             <span class="card-title">{{::detail.job.title}}</span>
-            <span class="card-category">{{::detail.job.publishedCategory.name}}</span>
+            <span class="card-category">{{::detail.job.categories.data[0].name}}</span>
         </span>
         <!-- LOCATION -->
         <span class="card-location">
@@ -54,7 +54,7 @@
         <!-- RELATED JOBS -->
         <div class="related-jobs" data-ng-if="detail.relatedJobs.length !== 0">
             <!-- JOB CATEGORY -->
-            <h5>{{'detail.relatedLabel' | i18n}} {{::detail.job.publishedCategory.name}} {{'common.jobsLabel' | i18n}}</h5>
+            <h5>{{'detail.relatedLabel' | i18n}} {{::detail.job.categories.data[0].name}} {{'common.jobsLabel' | i18n}}</h5>
             <!-- JOBS -->
             <div class="related-job" data-ng-repeat="job in detail.relatedJobs">
                 <a data-ng-href="#/jobs/{{::job.id}}">{{::job.title}}</a>
@@ -64,7 +64,7 @@
         <!-- BREAK -->
         <hr/>
         <!-- VIEW ALL JOBS IN CATEGORY LINK -->
-        <a href data-ng-click="detail.loadJobsWithCategory(detail.job.publishedCategory.id)" class="category-filter">{{'detail.viewAllJobsLabel' | i18n}}<i class="bhi-arrow-right"></i></a>
+        <a href data-ng-click="detail.loadJobsWithCategory(detail.job.categories.data[0].id)" class="category-filter">{{'detail.viewAllJobsLabel' | i18n}}<i class="bhi-arrow-right"></i></a>
     </div>
     <!-- DESCRIPTION CARD -->
     <div class="card description" data-ng-if="detail.job.isPublic && !detail.job.isDeleted && detail.job.isOpen">
@@ -103,7 +103,7 @@
         <!-- OTHER JOBS -->
         <p>
             {{'detail.jobClosedOtherJobsLabel' | i18n}}
-            <a href data-ng-click="detail.loadJobsWithCategory(detail.job.publishedCategory.id)">{{'common.hereLabel' | i18n}}</a>
+            <a href data-ng-click="detail.loadJobsWithCategory(detail.job.categories.data[0].id)">{{'common.hereLabel' | i18n}}</a>
         </p>
     </div>
 </section>
