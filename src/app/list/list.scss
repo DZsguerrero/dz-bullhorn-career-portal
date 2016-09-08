@@ -2,7 +2,7 @@ section.job-list {
     padding: 1.5em;
 
     > h4 {
-        color: darken($light-bg, 15%);
+        color: $dark-bg; //darken($light-bg, 15%);
         font-size: 1.3em;
         font-weight: 500;
         margin: 0 0 1em;

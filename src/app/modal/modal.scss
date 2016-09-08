@@ -9,6 +9,8 @@
     background: rgba(0, 0, 0, .7);
     z-index: $modal-z-index;
 
+    overflow-y: auto;
+
     > div.modal {
         display: block;
         margin: auto;
@@ -50,7 +52,7 @@
             }
 
             > section {
-                
+
                 > h2 {
                     font-size: 1.8em;
                     margin: 0.5em 0 0.2em;
@@ -76,7 +78,7 @@
                     }
 
                     &.location, &.separator, &.type {
-                        color: #3D5668
+                        color: $light-bg; //#3D5668
                     }
                 }
 
@@ -128,9 +130,13 @@
                                 font-size: 1.2em;
                             }
 
-                            > input {
+                            > label {
+                                width: 53%;
+                            }
+
+                            > input, select {
                                 flex: 1;
-                                color: lighten($dark-bg, 30%);
+                                color: lighten($dark-bg, 10%);
 
                                 &.ng-invalid {
                                     &.ng-valid-required {
@@ -148,6 +154,10 @@
                                         border-bottom: 1px solid $primary;
                                     }
                                 }
+                            }
+
+                            > select {
+                                overflow: hidden;
                             }
                         }
 
@@ -232,7 +242,7 @@
                     }
                 }
 
-                
+
                 // Linked In Skills and expertise:
                 textarea {
                     width: 100%;
