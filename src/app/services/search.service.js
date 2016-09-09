@@ -28,11 +28,11 @@ class SearchService {
     }
 
     static get _fields() {
-        return SearchService._.fields || (SearchService._.fields = 'id,title,clientCorporation(name),categories(id,name),address(city,state),employmentType,dateAdded,publicDescription,isOpen,isPublic,isDeleted');  //or -dateLastPublished or publishedCategory
+        return SearchService._.fields || (SearchService._.fields = 'id,title,clientCorporation(name),publishedCategory(id,name),address(city,state),employmentType,dateLastPublished,publicDescription,isOpen,isPublic,isDeleted');
     }
 
     static get _sort() {
-        return SearchService._.sort || (SearchService._.sort = '-dateAdded');  //or -dateLastPublished
+        return SearchService._.sort || (SearchService._.sort = '-dateLastPublished');
     }
 
     get _() {
@@ -116,7 +116,7 @@ class SearchService {
                 count: () => this.searchParams.count || SearchService._count,
                 start: () => this.searchParams.start || 0,
                 publishedCategory: (isSearch, fields) => {
-                    if ('categories(id,name)' !== fields) { // or publishedCategory
+                    if ('publishedCategory(id,name)' !== fields) {
                         if (this.searchParams.category.length > 0) {
                             var equals = isSearch ? ':' : '=';
 
@@ -130,7 +130,7 @@ class SearchService {
                                     first = false;
                                 }
 
-                                fragment += 'categories.id' + equals + this.searchParams.category[i];  // or publishedCategory
+                                fragment += 'publishedCategory.id' + equals + this.searchParams.category[i];
                             }
 
                             return fragment + ')';
@@ -196,7 +196,7 @@ class SearchService {
                         query += this.requestParams.companyName();
                     }
 
-                    query += this.requestParams.publishedCategory(isSearch, fields); 
+                    query += this.requestParams.publishedCategory(isSearch, fields);
                     query += this.requestParams.location(isSearch, fields);
 
                     return query;
@@ -215,7 +215,7 @@ class SearchService {
                     return prefix + '(' + values.join(join) + ')';
                 },
                 relatedJobs: (publishedCategoryID, idToExclude) => {
-                    var query = `(isOpen=true) AND categories.id=${publishedCategoryID}`;
+                    var query = `(isOpen=true) AND publishedCategory.id=${publishedCategoryID}`;
 
                     if (idToExclude && parseInt(idToExclude) > 0) {
                         query += ' AND id <>' + idToExclude;
@@ -272,7 +272,7 @@ class SearchService {
     }
 
     getCountByCategory(callback, errorCallback) {
-        return this.getCountBy('publishedCategory(id,name)', 'publishedCategory.name', callback, errorCallback); //or publishedCategory
+        return this.getCountBy('publishedCategory(id,name)', 'publishedCategory.name', callback, errorCallback);
     }
 
     getCountWhereIDs() {

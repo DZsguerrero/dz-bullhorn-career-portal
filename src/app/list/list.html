@@ -2,13 +2,13 @@
     <h4 data-ng-if="!list.SearchService.helper.isSearching && list.SearchService.currentListData.length">{{'list.jobListHeading' | i18n}}</h4>
 
     <div class="cards">
-        <div class="card-wrapper" data-ng-repeat="job in list.SearchService.currentListData | orderBy:dateAdded">
+        <div class="card-wrapper" data-ng-repeat="job in list.SearchService.currentListData | orderBy:dateLastPublished">
             <a class="card slide-up-item" data-ng-href="#/jobs/{{job.id}}">
-                <span class="card-date" data-ng-if="job.dateAdded">{{'common.addedLabel' | i18n}} - {{job.dateAdded | displayDate}}</span>
+                <span class="card-date" data-ng-if="job.dateLastPublished">{{'common.addedLabel' | i18n}} - {{job.dateLastPublished | displayDate}}</span>
 
                 <span class="card-title-category">
                     <span class="card-title">{{::job.title}}</span>
-                    <span class="card-category">{{::job.categories.data[0].name}}</span>
+                    <span class="card-category">{{::job.publishedCategory.name}}</span>
                 </span>
 
                 <span class="card-location">
