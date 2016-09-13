@@ -1,22 +1,9 @@
 class SearchService {
-    constructor($http, configuration, $q, $location) {
+    constructor($http, configuration, $q) {
         'ngInject';
         this.$http = $http;
         this.configuration = configuration;
         this.$q = $q;
-
-        var searchObj = $location.search();
-
-        if (searchObj.defaultCategory) {
-            // The default category is the ID of a category in Bullhorn. Its not clear at this point how a client would
-            // know what the potential category IDs are. Perhaps they'd be supplied to them? If not, we might need to
-            // change this to support receiving the category by name.
-            this.searchParams.category.push(parseInt(searchObj.defaultCategory, 10));
-        }
-
-        if (searchObj.defaultLocation && searchObj.defaultLocation.indexOf(':') !== -1) {
-            this.searchParams.location.push(searchObj.defaultLocation.split(':').join('|'));
-        }
     }
 
     static get _() {
@@ -28,11 +15,11 @@ class SearchService {
     }
 
     static get _fields() {
-        return SearchService._.fields || (SearchService._.fields = 'id,title,clientCorporation(name),categories(id,name),address(city,state),employmentType,dateAdded,publicDescription,isOpen,isPublic,isDeleted');  //or -dateLastPublished or publishedCategory
+        return SearchService._.fields || (SearchService._.fields = 'id,title,publishedCategory(id,name),address(city,state),employmentType,dateLastPublished,publicDescription,isOpen,isPublic,isDeleted');
     }
 
     static get _sort() {
-        return SearchService._.sort || (SearchService._.sort = '-dateAdded');  //or -dateLastPublished
+        return SearchService._.sort || (SearchService._.sort = '-dateLastPublished');
     }
 
     get _() {
@@ -79,11 +66,8 @@ class SearchService {
                         this.searchParams.category.length = 0;
                     } else if (specificParam === 'text') {
                         this.searchParams.textSearch = '';
-                    } else if (specificParam === 'companyName') {
-                        this.searchParams.companyNameSearch = '';
                     } else {
                         this.searchParams.textSearch = '';
-                        this.searchParams.companyNameSearch = '';
                         this.searchParams.category.length = 0;
                         this.searchParams.location.length = 0;
                     }
@@ -116,7 +100,8 @@ class SearchService {
                 count: () => this.searchParams.count || SearchService._count,
                 start: () => this.searchParams.start || 0,
                 publishedCategory: (isSearch, fields) => {
-                    if ('categories(id,name)' !== fields) { // or publishedCategory
+
+                    if ('publishedCategory(id,name)' !== fields) {
                         if (this.searchParams.category.length > 0) {
                             var equals = isSearch ? ':' : '=';
 
@@ -130,7 +115,7 @@ class SearchService {
                                     first = false;
                                 }
 
-                                fragment += 'categories.id' + equals + this.searchParams.category[i];  // or publishedCategory
+                                fragment += 'publishedCategory.id' + equals + this.searchParams.category[i];
                             }
 
                             return fragment + ')';
@@ -176,14 +161,6 @@ class SearchService {
 
                     return '';
                 },
-                // Example of adding some custom filtering. Currently this receives input from a text control on the
-                // front-end (similar to the above text search)
-                companyName: () => {
-                    if (this.searchParams.companyNameSearch) {
-                        return ' AND (clientCorporation.name:' + this.searchParams.companyNameSearch + '*)';
-                    }
-                    return '';
-                },
                 query: (isSearch, additionalQuery, fields) => {
                     var query = `(isOpen${isSearch ? ':1' : '=true'})`;
 
@@ -193,10 +170,9 @@ class SearchService {
 
                     if (isSearch) {
                         query += this.requestParams.text();
-                        query += this.requestParams.companyName();
                     }
-
-                    query += this.requestParams.publishedCategory(isSearch, fields); 
+                    query += ` AND (employmentType${isSearch ? ':"Internal Job"' : '=\'Internal Job\''})`;
+                    query += this.requestParams.publishedCategory(isSearch, fields);
                     query += this.requestParams.location(isSearch, fields);
 
                     return query;
@@ -215,7 +191,7 @@ class SearchService {
                     return prefix + '(' + values.join(join) + ')';
                 },
                 relatedJobs: (publishedCategoryID, idToExclude) => {
-                    var query = `(isOpen=true) AND categories.id=${publishedCategoryID}`;
+                    var query = `(isOpen=true) AND publishedCategory.id=${publishedCategoryID}`;
 
                     if (idToExclude && parseInt(idToExclude) > 0) {
                         query += ' AND id <>' + idToExclude;
@@ -252,7 +228,6 @@ class SearchService {
     get searchParams() {
         return this._.searchParams || (this._.searchParams = {
                 textSearch: '',
-                companyNameSearch: '',
                 location: [],
                 category: [],
                 sort: '',
@@ -272,7 +247,7 @@ class SearchService {
     }
 
     getCountByCategory(callback, errorCallback) {
-        return this.getCountBy('publishedCategory(id,name)', 'publishedCategory.name', callback, errorCallback); //or publishedCategory
+        return this.getCountBy('publishedCategory(id,name)', 'publishedCategory.name', callback, errorCallback);
     }
 
     getCountWhereIDs() {

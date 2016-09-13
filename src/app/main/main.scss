@@ -196,8 +196,13 @@ section.portal {
             }
 
             > section.fade {
-                height: calc(100% - #{$header-height});
-                overflow: auto;
+                height: calc(100% - 250px);
+                overflow:auto;
+                
+                @include desktop(){
+                    height: calc(100% - 150px);
+                    overflow:auto;
+                }
             }
         }
     }
