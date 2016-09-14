@@ -67,10 +67,14 @@ aside {
     }
 
     > section {
-        flex: 1;
-        height: calc(100% - #{$header-height});
+        flex: 1;        
+        height: calc(100% - 250px);
         overflow: auto;
         padding: 1em;
+        @include desktop(){
+            height: calc(100% - 150px);
+            overflow:auto;
+        }     
 
         > div.keyword-search {
             position: relative;
