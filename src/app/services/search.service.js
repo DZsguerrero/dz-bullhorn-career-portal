@@ -13,6 +13,9 @@ class SearchService {
             // change this to support receiving the category by name.
             this.searchParams.category.push(parseInt(searchObj.categoryID, 10));
         }
+        else if (searchObj.q) {
+            this.searchParams.textSearch = searchObj.q;
+        }
 
         if (searchObj.defaultLocation && searchObj.defaultLocation.indexOf(':') !== -1) {
             this.searchParams.location.push(searchObj.defaultLocation.split(':').join('|'));
@@ -185,7 +188,7 @@ class SearchService {
                     return '';
                 },
                 query: (isSearch, additionalQuery, fields) => {
-                    var query = `(isOpen${isSearch ? ':1' : '=true'})`;
+                    var query = `(isOpen${isSearch ? ':1' : '=true'}) AND (correlatedCustomText4${isSearch ? ':"DZ Staff"' : '=\'DZ Staff\''})`;
 
                     if (additionalQuery) {
                         query += ` AND (${additionalQuery})`;
@@ -195,7 +198,7 @@ class SearchService {
                         query += this.requestParams.text();
                         query += this.requestParams.companyName();
                     }
-                    query += ` AND (employmentType${isSearch ? ':"Internal Job"' : '=\'Internal Job\''})`;
+                
                     query += this.requestParams.publishedCategory(isSearch, fields);
                     query += this.requestParams.location(isSearch, fields);
 
@@ -212,7 +215,7 @@ class SearchService {
                         values.push(getValue(jobs[i]));
                     }
 
-                    return prefix + '(' + values.join(join) + ')';
+                    return prefix + `(` + values.join(join) + `) AND (correlatedCustomText4${isSearch ? ':"DZ Staff"' : '=\'DZ Staff\''})`;
                 },
                 relatedJobs: (publishedCategoryID, idToExclude) => {
                     var query = `(isOpen=true) AND publishedCategory.id=${publishedCategoryID}`;
