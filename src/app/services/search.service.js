@@ -31,7 +31,7 @@ class SearchService {
     }
 
     static get _fields() {
-        return SearchService._.fields || (SearchService._.fields = 'id,title,clientCorporation(name),publishedCategory(id,name),address(city,state),employmentType,dateLastPublished,publicDescription,isOpen,isPublic,isDeleted');
+        return SearchService._.fields || (SearchService._.fields = 'id,title,clientCorporation(name),publishedCategory(id,name),address(city,state),employmentType,dateLastPublished,correlatedCustomText4,publicDescription,isOpen,isPublic,isDeleted');
     }
 
     static get _sort() {
@@ -188,7 +188,38 @@ class SearchService {
                     return '';
                 },
                 query: (isSearch, additionalQuery, fields) => {
-                    var query = `(isOpen${isSearch ? ':1' : '=true'}) AND (correlatedCustomText4${isSearch ? ':"DZ Staff"' : '=\'DZ Staff\''})`;
+                    
+                    // 12/15/2016:  Querying by division. - Sanford Guerrero
+                    // 1.  Store Division values.
+                    var query = '';
+                    // Yoh                    
+                    //ar divisions = ['Yoh Aviation','Yoh Field Agile','Yoh Field East','Yoh Field Healthcare','Yoh Field West','Yoh National Accounts','Yoh RPO','Yoh Validation','Yoh Managed Services'];
+                    //var divisions = [];
+                    // D&Z Staff
+                    var divisions = ['DZ Staff'];
+                    // D&Z Federal
+                    //var divisions = ['DZ Federal'];
+                    // 2.  Prepare query string.
+                    // If searching for job ID's, query correlatedCustomText4 (division) by bind variable (:"Division").
+                    // Else, write out value to go into IN statement.
+                    
+                    if (divisions.length > 0) {
+                        var getDivisionValue = isSearch ? (division) => '(correlatedCustomText4:"' + division + '")' : (division) => '\'' + division + '\'';
+                        var join = isSearch ? ' OR ' : ',';
+                        var prefix = isSearch ? '' : 'correlatedCustomText4 IN ';
+                        var values = [];
+                        // Loop through Yoh division array values and build correlatedCustomText4 query.
+                        for (var i = 0; i < divisions.length; i++) {
+                            values.push(getDivisionValue(divisions[i]));
+                        }
+                        // Concatenate conditions statements.  (isOpen and correlatedCustomText4)
+                        query = `(isOpen${isSearch ? ':1' : '=true'}) AND ` + prefix + `(` + values.join(join) +  `)`;
+                    }
+                    else {
+                        // Concatenate conditions statements.  (isOpen and correlatedCustomText4)
+                        query = `(isOpen${isSearch ? ':1' : '=true'})`;
+                    }
+                    
 
                     if (additionalQuery) {
                         query += ` AND (${additionalQuery})`;
@@ -215,7 +246,7 @@ class SearchService {
                         values.push(getValue(jobs[i]));
                     }
 
-                    return prefix + `(` + values.join(join) + `) AND (correlatedCustomText4${isSearch ? ':"DZ Staff"' : '=\'DZ Staff\''})`;
+                    return prefix + `(` + values.join(join) + `)`;
                 },
                 relatedJobs: (publishedCategoryID, idToExclude) => {
                     var query = `(isOpen=true) AND publishedCategory.id=${publishedCategoryID}`;
