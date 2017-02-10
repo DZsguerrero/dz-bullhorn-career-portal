@@ -7,17 +7,17 @@ class SearchService {
 
         var searchObj = $location.search();
 
-        if (searchObj.categoryID) {
+        if (searchObj.categoryID) {  // Category ID search.  Under attribute categoryID
             // The default category is the ID of a category in Bullhorn. Its not clear at this point how a client would
             // know what the potential category IDs are. Perhaps they'd be supplied to them? If not, we might need to
             // change this to support receiving the category by name.
             this.searchParams.category.push(parseInt(searchObj.categoryID, 10));
         }
-        else if (searchObj.q) {
+        else if (searchObj.q) {  // Text search.  Under attribute q.
             this.searchParams.textSearch = searchObj.q;
         }
 
-        if (searchObj.defaultLocation && searchObj.defaultLocation.indexOf(':') !== -1) {
+        if (searchObj.defaultLocation && searchObj.defaultLocation.indexOf(':') !== -1) {  // Location search.  Under attribute defaultLocation, finds the value format: CITY:STATE
             this.searchParams.location.push(searchObj.defaultLocation.split(':').join('|'));
         }
     }
@@ -193,10 +193,10 @@ class SearchService {
                     // 1.  Store Division values.
                     var query = '';
                     // Yoh                    
-                    //ar divisions = ['Yoh Aviation','Yoh Field Agile','Yoh Field East','Yoh Field Healthcare','Yoh Field West','Yoh National Accounts','Yoh RPO','Yoh Validation','Yoh Managed Services'];
+                    //ar divisions = ['Yoh Aviation','Yoh Field Agile','Yoh Field East','Yoh Field Healthcare','Yoh Field West','Yoh National Accounts','Yoh RPO','Yoh Validation','Yoh Managed Services','Yoh United Kingdom'];
                     //var divisions = [];
                     // D&Z Staff
-                    var divisions = ['DZ Staff'];
+                    var divisions = ['DZ Staff','Yoh Corporate'];
                     // D&Z Federal
                     //var divisions = ['DZ Federal'];
                     // 2.  Prepare query string.
@@ -249,7 +249,11 @@ class SearchService {
                     return prefix + `(` + values.join(join) + `)`;
                 },
                 relatedJobs: (publishedCategoryID, idToExclude) => {
-                    var query = `(isOpen=true) AND publishedCategory.id=${publishedCategoryID}`;
+                    // Original query
+                    //var query = `(isOpen=true) AND publishedCategory.id=${publishedCategoryID}`;
+                    
+                    // 1/25/2017 Update:  Search related jobs based on division
+                    var query = `(isOpen=true) AND publishedCategory.id=${publishedCategoryID} AND correlatedCustomText4 IN ('DZ Staff', 'Yoh Corporate') `;
 
                     if (idToExclude && parseInt(idToExclude) > 0) {
                         query += ' AND id <>' + idToExclude;

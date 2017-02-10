@@ -119,7 +119,7 @@ class CareerPortalModalController {
     }
 
     getTooltipText() {
-        var tooltip = '<ul>';
+        var tooltip = '<ul style="font-family:Arial; font-size:0.9em !important;">';
         this.configuration.acceptedResumeTypes.forEach(function (type) {
             tooltip += '<li>' + type + '</li>';
         });
@@ -130,18 +130,29 @@ class CareerPortalModalController {
     getEEOCTooltipText(eeocSection) {
         var tooltip;
         if (this.configuration.eeoc[eeocSection]) {
-            tooltip = this.configuration.eeoc[eeocSection].tooltip.html;
+            tooltip = '<div style="width:550px; font-family:Arial; font-size:0.9em !important;">' + this.configuration.eeoc[eeocSection].tooltip.html + '</div>';
         } else {
-            tooltip = this.configuration.eeoc.tooltip.html;
+            tooltip = '<div style="width:550px; font-family:Arial; font-size:0.9em !important;">' + this.configuration.eeoc.tooltip.html + '</div>';
         }
         return tooltip.replace(/\{companyName\}/g, this.configuration.companyName);
     }
 
-    getEEOCEthnicityTooltipText() {
-        var tooltip = '<ul>';
+   getEEOCEthnicityTooltipText() {
+        var tooltip = '<ul style="width:450px; font-family:Arial; font-size:0.9em !important;">';
         this.configuration.eeoc.ethnicity.options.forEach(function (option) {
             if (option.info) {
-                tooltip += '<li>' + option.label + ': ' + option.info + '</li>';
+                tooltip += '<li><b>' + option.label + ':</b> ' + option.info + '</li>';
+            }
+        });
+        tooltip += '</ul>';
+        return tooltip;
+    }
+
+    getEEOCRaceTooltipText() {
+        var tooltip = '<ul style="width:450px; font-family:Arial; font-size:0.9em !important;">';
+        this.configuration.eeoc.race.options.forEach(function (option) {
+            if (option.info) {
+                tooltip += '<li><b>' + option.label + ':</b> ' + option.info + '</li>';
             }
         });
         tooltip += '</ul>';

@@ -196,7 +196,7 @@ section.portal {
             }
 
             > section.fade {
-                height: calc(100% - 250px);
+                height: calc(100% - 200px);
                 overflow:auto;
                 
                 @include desktop(){
